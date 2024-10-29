@@ -7,15 +7,25 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@yahmat/dhtmlxgantt": "^1.0.8",
+    "axios": "^1.7.7",
+    "bulma": "^1.0.2",
     "core-js": "^3.8.3",
+    "dhtmlx-gantt": "^9.0.1",
+    "jalali-moment": "^3.3.11",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
+    "vue3-easy-data-table": "^1.5.47",
+    "vue3-persian-datetime-picker": "^1.2.2",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "sass": "^1.80.4",
+    "sass-loader": "^16.0.2",
+    "webpack": "^5.95.0"
   }
 }

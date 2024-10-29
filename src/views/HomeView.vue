@@ -1,18 +1,27 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<div>
+  <Gantt/>
+</div>
+
 </template>
 
-<script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
+
+<script>
+import Gantt from "./project_mgmt/Gantt.vue";
+import PDatePicker from './project_mgmt/PDatePickerView.vue';
+ 
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+  components: {Gantt},
 }
 </script>
+
+
+<style>
+  .left-container {
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+  }
+</style>
