@@ -71,7 +71,14 @@
                       <JDatePicker ref="JDatePicker" v-model="end_date"/>
                   </div>
           </div></div>
+         
           </div>
+          <p v-if="errors.length">
+                <b>لطفا موارد زیر را تصحیح  نمایید</b>
+                <ul>
+                <li class="has-text-danger" v-for="error in errors">{{ error }}</li>
+                </ul>
+          </p>
         </form>
 </template>
 
@@ -97,13 +104,15 @@ import axios from 'axios';
             manager: '',
             status : '',
             project_type: '',
-            calendar: ''
+            calendar: '', 
+            errors:[]
         }
     },
     methods: {
-        submitForm(event, mode) { 
-        moment.locale('en');
-        let curr_user = JSON.parse(localStorage.getItem('userData')).user_id
+        submitForm(event, mode) {
+        let res = this.checkForm(event);
+        if (res) {
+            moment.locale('en');
         const data = {
             title : this.title,
             description : this.description,
@@ -113,16 +122,12 @@ import axios from 'axios';
             manager : this.manager,
             status : this.status,
             project_type : this.project_type,
-            calendar : this.calendar,
-            user : curr_user
+            calendar : this.calendar
         }
         axios.post('/api/project_mgmt/projects', data)
             .then(response => {
-                
                 console.log('Sakhtem');
                 this.$router.go(0);
-
-                
             })
             .catch(error => {
                 if(error.response) {
@@ -139,6 +144,10 @@ import axios from 'axios';
                     
                 }
             });
+        } else {
+            return false;
+        }
+        
         },
         statusChanged(event) {
             this.status = event.target.value;
@@ -159,6 +168,54 @@ import axios from 'axios';
         calendarChanged(event) {
             this.calendar = event.target.value;
             console.log(this.calendar);
+        }, 
+
+        checkForm(event) {
+            this.errors = [];
+            let flag = true;
+            if (!this.title) {
+                this.errors.push('عنوان پروژه الزامی است')
+                flag = false
+            }
+            if (!this.description) {
+                this.errors.push('شرح پروزه الزامی است')
+                flag = false
+            }
+            if (!this.department) {
+                this.errors.push('لطفا اداره متولی را انتخاب نمایید')
+                flag = false
+            }
+            if (!this.start_date) {
+                this.errors.push('تاریخ شروع الزامی است')
+                flag = false
+            }
+            if (!this.end_date) {
+                this.errors.push('تاریخ پایان الزامی است')
+                flag = false
+            }
+            if (!this.manager) {
+                this.errors.push('لطفا مدیر پروژه را انتخاب نمایید')
+                flag = false
+            }
+            if (!this.status) {
+                this.errors.push('لطفا وضعیت پروژه را انتخاب نمایید')
+                flag = false
+            }
+            if (!this.project_type) {
+                this.errors.push('لطفا نوع پروژه را مشخص کنید')
+                flag = false
+            }
+            if (!this.calendar) {
+                this.errors.push('لطفا تقویم پروژه را انتخاب نمایید')
+                flag = false
+            }
+            if (!flag) {
+               return false;
+            } else {
+                return true;
+            }
+            
+
         }
         
     },

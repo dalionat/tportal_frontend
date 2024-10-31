@@ -88,7 +88,7 @@ axios.get('/api/project_mgmt/projects')
                     items.value.push({
                         id: project.project_id,
                         title: project.title,
-                        page: "/projects/" + project.project_id,
+                        page: "/projects/" + project.project_id + '/tasks',
                         status: project.status_title,
                         start_date: moment(project.start_date).format('YYYY/MM/DD'),
                         end_date: moment(project.end_date).format('YYYY/MM/DD'),
@@ -117,8 +117,10 @@ methods: {
     saveParojectData(mode) {
         // console.log('Hello')
         // this.updateComponent();
-        this.$refs.ProjectForm.submitForm(event, mode);
-        this.closeModal();
+        let res  = this.$refs.ProjectForm.submitForm(event, mode);
+        if (res) {
+          this.closeModal();
+        }
       },
     deleteItem(item) {
         console.log(item);

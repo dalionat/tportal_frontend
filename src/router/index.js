@@ -4,12 +4,13 @@ import Dashboard from "../views/dashboard_mgmt/DashboardView.vue";
 import SignUp from '../views/SignUp.vue'
 import LogIn from '../views/LogIn.vue'
 import MyAccount from "../views/dashboard_mgmt/MyAccountView.vue";
-import ProjectManagementCrudeView from "../views/project_mgmt/PmCrudeView.vue"  
+import ProjectManagementCrudeView from "../views/project_mgmt/PmCrudeView.vue"
 
 
 import ProjectManagemenMainView from "../views/project_mgmt/MainView.vue";
 
 import store from '../store'
+import Schedule from '../views/project_mgmt/Schedule.vue';
 
 const routes = [
   {
@@ -57,6 +58,14 @@ const routes = [
     path: "/project_mgmt",
     name: "ProjectManagemenMainView",
     component: ProjectManagemenMainView,
+    meta: {
+      requiredLogin: true,
+    },
+  },
+  {
+    path: "/projects/:id/tasks",
+    name: "Schedule",
+    component: Schedule,
     meta: {
       requiredLogin: true,
     },
